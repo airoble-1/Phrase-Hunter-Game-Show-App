@@ -7,33 +7,38 @@ class Phrase {
   constructor(phrase) {
     this.phrase = phrase.toLowerCase()
   }
+
+  /**
+   * Display phrase on game board
+   */
   addPhraseToDisplay() {
-    let html
-    phraseArray = this.phrase.split()
+    let html = ""
+    const phraseArray = this.phrase.split("")
     phraseArray.forEach((ele) => {
       if (ele === " ") {
         html += `<li class="space"> </li>`
-      } else {
-        ;`<li class="hide letter ${ele}">${ele}</li>`
-      }
+      } else html += `<li class="hide letter ${ele}">${ele}</li>`
     })
+    document.querySelector("#phrase ul").innerHTML = html
   }
-  checkLetter() {
-    document.getElementById("qwerty").addEventListener("click", () => {
-      const isMatch =
-        e.target.value === document.querySelector(`.${e.target.value}`).value
-          ? true
-          : false
+  /**
+   * Checks if passed letter is in phrase
+   * @param (string) letter - Letter to check
+   */
+  checkLetter(letter) {
+    return this.phrase.includes(letter)
+  }
+
+  /**
+   * Displays passed letter on screen after a match is found
+   * @param (string) letter - Letter to display
+   */
+  showMatchedLetter(letter) {
+    const liHTMLCollection = document.getElementsByClassName(letter)
+    const liArray = [...liHTMLCollection]
+    liArray.forEach((li) => {
+      li.classList.remove("hide")
+      li.classList.add("show")
     })
-    return isMatch
-  }
-  showMatchedLetter() {
-    if (this.checkLetter()) {
-      const matchedLetters = document.querySelectorAll(`.${e.target.value}`)
-      matchedLetters.forEach((letter) => {
-        letter.classList.remove("hide")
-        letter.classList.add("show")
-      })
-    }
   }
 }

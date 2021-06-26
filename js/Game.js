@@ -57,7 +57,6 @@ class Game {
    */
   removeLife() {
     this.missed = this.missed + 1
-    console.log(this.missed)
     const tries = document.querySelectorAll(".tries")
     tries[0].classList.remove("tries")
     tries[0].classList.add("lost")
@@ -112,6 +111,7 @@ class Game {
     const buttons = document.querySelectorAll("#qwerty button")
     buttons.forEach((btn) => {
       btn.className = "key"
+      btn.disabled = false
     })
     const hearts = document.querySelectorAll(".lost")
     hearts.forEach((heart) => {

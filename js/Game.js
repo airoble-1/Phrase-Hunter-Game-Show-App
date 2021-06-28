@@ -45,10 +45,7 @@ class Game {
   checkForWin() {
     const letters = document.getElementsByClassName("letter")
     const lettersShown = document.getElementsByClassName("show")
-    if (letters.length === lettersShown.length) {
-      this.gameOver(true)
-      this.resetGame()
-    }
+    if (letters.length === lettersShown.length) return true
   }
   /**
    * Increases the value of the missed property
@@ -96,12 +93,16 @@ class Game {
     if (isMatch) {
       e.target.classList.add("chosen")
       this.activePhrase.showMatchedLetter(letter)
-      this.checkForWin()
     } else {
       e.target.classList.add("wrong")
       this.removeLife()
     }
+    if (this.checkForWin()) {
+      this.gameOver(true)
+      this.resetGame()
+    }
   }
+
   /**
    * Restores all on-screen keys to intial state
    * Restores scoreboard to full lives
